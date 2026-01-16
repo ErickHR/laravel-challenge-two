@@ -1,0 +1,25 @@
+
+services:
+  ubuntu:
+    build: .
+    container_name: challenge_container_two
+    command: tail -f /dev/null
+    ports:
+      - "8002:8000"
+    volumes:
+      - ./:/app/challenge
+    restart: unless-stopped
+    networks:
+      challenge-two-network:
+        ipv4_address: 172.26.0.5
+      reverse-proxy:
+        ipv4_address: 172.20.0.21
+
+networks:
+  reverse-proxy:
+    external: true
+  challenge-two-network:
+      driver: bridge
+      ipam:
+        config:
+          - subnet: 172.26.0.0/16
