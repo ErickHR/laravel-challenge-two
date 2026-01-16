@@ -39,21 +39,15 @@ final class GildedRose
     if ($item->sellIn < 0)  $item->quality = 0;
   }
 
-  public function passSulfuras($item)
-  {
-    if ($item->name == 'Sulfuras, Hand of Ragnaros') {
-    }
-  }
+  public function passSulfuras($item) {}
 
   public function passAgedBrie($item)
   {
-    if ($item->name == 'Aged Brie') {
-      $this->addQualityIfBelow50($item);
+    $this->addQualityIfBelow50($item);
 
-      $item->sellIn = $item->sellIn - 1;
+    $item->sellIn = $item->sellIn - 1;
 
-      if ($item->sellIn < 0) $this->addQualityIfBelow50($item);
-    }
+    if ($item->sellIn < 0) $this->addQualityIfBelow50($item);
   }
 
   public function passAnother($item)
