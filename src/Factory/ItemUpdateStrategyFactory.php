@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace GildedRose\Factory;
 
+use GildedRose\Item;
+
 use GildedRose\Strategy\AgedBrieItemUpdateStrategy;
 use GildedRose\Strategy\Base\ItemUpdateStrategy;
 
@@ -11,7 +13,7 @@ use GildedRose\Strategy\BackstageItemUpdateStrategy;
 use GildedRose\Strategy\StandardItemUpdateStrategy;
 use GildedRose\Strategy\SulfurasItemUpdateStrategy;
 
-class ItemStrategyFactory
+class ItemUpdateStrategyFactory
 {
 
   private const AGED_BRIE = 'Aged Brie';
@@ -24,7 +26,7 @@ class ItemStrategyFactory
     self::BACKSTAGE_PASSES => BackstageItemUpdateStrategy::class,
   ];
 
-  public function create($item): ItemUpdateStrategy
+  public function create(Item $item): ItemUpdateStrategy
   {
     $strategyClass = $this->strategyMap[$item->name] ?? StandardItemUpdateStrategy::class;
     return new $strategyClass($item);

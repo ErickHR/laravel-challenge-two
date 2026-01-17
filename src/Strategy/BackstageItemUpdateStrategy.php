@@ -11,9 +11,9 @@ class BackstageItemUpdateStrategy extends BaseItemUpdateStrategy
   public function update(): void
   {
     $this->increaseQuality();
-    $this->applyIfSellInBelow(self::ELEVEN, fn() => $this->increaseQuality());
-    $this->applyIfSellInBelow(self::SIX, fn() => $this->increaseQuality());
+    $this->applyIfSellInBelow(self::BACKSTAGE_CRITICAL_THRESHOLD, fn() => $this->increaseQuality());
+    $this->applyIfSellInBelow(self::BACKSTAGE_URGENT_THRESHOLD, fn() => $this->increaseQuality());
     $this->decreaseSellIn();
-    $this->applyIfSellInBelow(self::MIN_SELL_IN, fn() => $this->setQuality(0));
+    $this->applyIfSellInBelow(self::MIN_SELL_IN, fn() => $this->setQuality(self::MIN_QUALITY));
   }
 }

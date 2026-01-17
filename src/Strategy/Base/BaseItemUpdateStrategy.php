@@ -13,8 +13,8 @@ abstract class BaseItemUpdateStrategy  implements ItemUpdateStrategy
   protected const MIN_QUALITY = 0;
 
   protected const MIN_SELL_IN = 0;
-  protected const SIX = 6;
-  protected const ELEVEN = 11;
+  protected const BACKSTAGE_URGENT_THRESHOLD = 6;
+  protected const BACKSTAGE_CRITICAL_THRESHOLD = 11;
 
   protected Item $item;
 
@@ -37,9 +37,9 @@ abstract class BaseItemUpdateStrategy  implements ItemUpdateStrategy
     }
   }
 
-  protected function setQuality(): void
+  protected function setQuality(int $quality): void
   {
-    $this->item->quality = self::MIN_QUALITY;
+    $this->item->quality = $quality;
   }
 
   protected function decreaseSellIn(): void

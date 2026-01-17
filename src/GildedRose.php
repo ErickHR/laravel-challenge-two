@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace GildedRose;
 
-use GildedRose\Factory\ItemStrategyFactory;
+use GildedRose\Factory\ItemUpdateStrategyFactory;
 
 final class GildedRose
 {
@@ -12,14 +12,17 @@ final class GildedRose
    * @param Item[] $items
    */
   public function __construct(
-    private array $items
-  ) {}
+    private array $items,
+    private ?ItemUpdateStrategyFactory $factory = null
+  ) {
+    $this->items = $items;
+    $this->factory = $factory ?? new ItemUpdateStrategyFactory();
+  }
 
   public function updateQuality(): void
   {
-    $itemStrategyFactory = new ItemStrategyFactory();
     foreach ($this->items as $item) {
-      $strategy = $itemStrategyFactory->create($item);
+      $strategy = $this->factory->create($item);
       $strategy->update();
     }
   }
