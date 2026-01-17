@@ -4,40 +4,42 @@ declare(strict_types=1);
 
 namespace GildedRose\Entity;
 
-class QualityValueObject
+use GildedRose\Item;
+
+class Quality
 {
   protected const MIN_THRESHOLD = 0;
   protected const SECOND_THRESHOLD = 50;
 
-  private int $value;
+  private Item $item;
 
-  public function __construct(int $value)
+  public function __construct(Item $item)
   {
-    $this->value = $value;
+    $this->item = $item;
   }
 
   public function increase(): void
   {
-    if ($this->value < self::SECOND_THRESHOLD) {
-      $this->value++;
+    if ($this->item->quality < self::SECOND_THRESHOLD) {
+      $this->item->quality++;
     }
   }
 
   public function decrease(): void
   {
-    if ($this->value > self::MIN_THRESHOLD) {
-      $this->value--;
+    if ($this->item->quality > self::MIN_THRESHOLD) {
+      $this->item->quality--;
     }
   }
 
   public function getValue(): int
   {
-    return $this->value;
+    return $this->item->quality;
   }
 
   public function setValue(int $value): void
   {
-    $this->value = $value;
+    $this->item->quality = $value;
   }
 
   public function getConstsMinThreshold(): int

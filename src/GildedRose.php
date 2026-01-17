@@ -23,12 +23,8 @@ final class GildedRose
   public function updateQuality(): void
   {
     foreach ($this->items as $item) {
-      $itemEntity = new ItemEntity($item->name, $item->sellIn, $item->quality);
-      $strategy = $this->factory->create($itemEntity);
+      $strategy = $this->factory->create($item);
       $strategy->update();
-
-      $item->sellIn = $itemEntity->getSellIn()->getValue();
-      $item->quality = $itemEntity->getQuality()->getValue();
     }
   }
 }

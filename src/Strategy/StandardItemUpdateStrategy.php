@@ -10,11 +10,11 @@ class StandardItemUpdateStrategy extends BaseItemUpdateStrategy
 {
   public function update(): void
   {
-    $this->item->getQuality()->decrease();
-    $this->item->getSellIn()->decrement();
-    $this->item->getSellIn()->applyIfSellInBelow(
-      $this->item->getSellIn()->getConstsMinThreshold(),
-      fn() => $this->item->getQuality()->decrease()
+    $this->quality()->decrease();
+    $this->sellIn()->decrement();
+    $this->sellIn()->applyIfSellInBelow(
+      $this->sellIn()->getConstsMinThreshold(),
+      fn() => $this->quality()->decrease()
     );
   }
 }
