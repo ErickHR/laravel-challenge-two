@@ -6,7 +6,7 @@ namespace GildedRose\Strategy\Base;
 
 use GildedRose\Item;
 
-abstract class BaseItemUpdateStrategy  implements ItemUpdateStrategy
+abstract class BaseItemUpdateStrategy  implements ItemUpdateStrategyFactoryInterface
 {
 
   protected const MAX_QUALITY = 50;

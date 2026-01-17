@@ -6,9 +6,9 @@ namespace GildedRose\Factory;
 
 use GildedRose\Item;
 
-use GildedRose\Strategy\AgedBrieItemUpdateStrategy;
-use GildedRose\Strategy\Base\ItemUpdateStrategy;
+use GildedRose\Strategy\Base\ItemUpdateStrategyFactoryInterface;
 
+use GildedRose\Strategy\AgedBrieItemUpdateStrategy;
 use GildedRose\Strategy\BackstageItemUpdateStrategy;
 use GildedRose\Strategy\StandardItemUpdateStrategy;
 use GildedRose\Strategy\SulfurasItemUpdateStrategy;
@@ -26,7 +26,7 @@ class ItemUpdateStrategyFactory
     self::BACKSTAGE_PASSES => BackstageItemUpdateStrategy::class,
   ];
 
-  public function create(Item $item): ItemUpdateStrategy
+  public function create(Item $item): ItemUpdateStrategyFactoryInterface
   {
     $strategyClass = $this->strategyMap[$item->name] ?? StandardItemUpdateStrategy::class;
     return new $strategyClass($item);
