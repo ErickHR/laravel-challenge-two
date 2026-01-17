@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace GildedRose;
 
+use GildedRose\Entity\ItemEntity;
 use GildedRose\Factory\ItemUpdateStrategyFactory;
 
 final class GildedRose
@@ -22,8 +23,12 @@ final class GildedRose
   public function updateQuality(): void
   {
     foreach ($this->items as $item) {
-      $strategy = $this->factory->create($item);
+      $itemEntity = new ItemEntity($item->name, $item->sellIn, $item->quality);
+      $strategy = $this->factory->create($itemEntity);
       $strategy->update();
+
+      $item->sellIn = $itemEntity->getSellIn()->getValue();
+      $item->quality = $itemEntity->getQuality()->getValue();
     }
   }
 }

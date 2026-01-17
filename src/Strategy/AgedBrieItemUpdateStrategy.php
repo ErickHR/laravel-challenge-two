@@ -10,8 +10,12 @@ class AgedBrieItemUpdateStrategy  extends BaseItemUpdateStrategy
 {
   public function update(): void
   {
-    $this->increaseQuality();
-    $this->decreaseSellIn();
-    $this->applyIfSellInBelow(self::MIN_SELL_IN, fn() => $this->increaseQuality());
+    $this->item->getQuality()->increase();
+    $this->item->getSellIn()->decrement();
+
+    $this->item->getSellIn()->applyIfSellInBelow(
+      $this->item->getSellIn()->getConstsMinThreshold(),
+      fn() => $this->item->getQuality()->increase()
+    );
   }
 }
