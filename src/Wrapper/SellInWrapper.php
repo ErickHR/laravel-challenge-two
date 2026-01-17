@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace GildedRose\Entity;
+namespace GildedRose\Wrapper;
 
 use GildedRose\Item;
 
-class SellIn
+class SellInWrapper
 {
 
   protected const MIN_THRESHOLD = 0;
