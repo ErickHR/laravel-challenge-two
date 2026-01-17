@@ -6,9 +6,10 @@ namespace GildedRose\Entity;
 
 class QualityValueObject
 {
-  private int $value;
   protected const MIN_THRESHOLD = 0;
   protected const SECOND_THRESHOLD = 50;
+
+  private int $value;
 
   public function __construct(int $value)
   {
