@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace GildedRose;
 
-use GildedRose\Entity\ItemEntity;
 use GildedRose\Factory\ItemUpdateStrategyFactory;
 
 final class GildedRose

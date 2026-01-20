@@ -8,8 +8,8 @@ use GildedRose\Item;
 
 class QualityWrapper
 {
-  protected const MIN_THRESHOLD = 0;
-  protected const SECOND_THRESHOLD = 50;
+  public const MIN_THRESHOLD = 0;
+  public const SECOND_THRESHOLD = 50;
 
   private Item $item;
 
@@ -40,15 +40,5 @@ class QualityWrapper
   public function setValue(int $value): void
   {
     $this->item->quality = $value;
-  }
-
-  public function getConstsMinThreshold(): int
-  {
-    return self::MIN_THRESHOLD;
-  }
-
-  public function getConstsSecondThreshold(): int
-  {
-    return self::SECOND_THRESHOLD;
   }
 }

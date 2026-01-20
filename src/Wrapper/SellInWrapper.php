@@ -9,9 +9,9 @@ use GildedRose\Item;
 class SellInWrapper
 {
 
-  protected const MIN_THRESHOLD = 0;
-  protected const SECOND_THRESHOLD = 6;
-  protected const THIRD_THRESHOLD = 11;
+  public const MIN_THRESHOLD = 0;
+  public const SECOND_THRESHOLD = 6;
+  public const THIRD_THRESHOLD = 11;
 
   private Item $item;
 
@@ -30,7 +30,7 @@ class SellInWrapper
     return $this->item->sellIn < 0;
   }
 
-  public function applyIfSellInBelow($value, callable $action): void
+  public function applyIfSellInBelow(int $value, callable $action): void
   {
     if ($this->item->sellIn < $value) {
       $action();
@@ -40,20 +40,5 @@ class SellInWrapper
   public function getValue(): int
   {
     return $this->item->sellIn;
-  }
-
-  public function getConstsMinThreshold(): int
-  {
-    return self::MIN_THRESHOLD;
-  }
-
-  public function getConstsSecondThreshold(): int
-  {
-    return self::SECOND_THRESHOLD;
-  }
-
-  public function getConstsThirdThreshold(): int
-  {
-    return self::THIRD_THRESHOLD;
   }
 }

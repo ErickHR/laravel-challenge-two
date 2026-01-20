@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace GildedRose\Strategy\Base;
 
-interface ItemUpdateStrategyFactoryInterface
+interface ItemUpdateStrategyInterface
 {
   public function update(): void;
 }

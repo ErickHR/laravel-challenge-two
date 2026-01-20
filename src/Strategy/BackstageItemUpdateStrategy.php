@@ -6,26 +6,29 @@ namespace GildedRose\Strategy;
 
 use GildedRose\Strategy\Base\BaseItemUpdateStrategy;
 
+use GildedRose\Wrapper\SellInWrapper;
+use GildedRose\Wrapper\QualityWrapper;
+
 class BackstageItemUpdateStrategy extends BaseItemUpdateStrategy
 {
   public function update(): void
   {
     $this->quality()->increase();
     $this->sellIn()->applyIfSellInBelow(
-      $this->sellIn()->getConstsThirdThreshold(),
+      SellInWrapper::THIRD_THRESHOLD,
       fn() => $this->quality()->increase()
     );
 
     $this->sellIn()->applyIfSellInBelow(
-      $this->sellIn()->getConstsSecondThreshold(),
+      SellInWrapper::SECOND_THRESHOLD,
       fn() => $this->quality()->increase()
     );
 
     $this->sellIn()->decrement();
 
     $this->sellIn()->applyIfSellInBelow(
-      $this->sellIn()->getConstsMinThreshold(),
-      fn() => $this->quality()->setValue($this->quality()->getConstsMinThreshold())
+      SellInWrapper::MIN_THRESHOLD,
+      fn() => $this->quality()->setValue(QualityWrapper::MIN_THRESHOLD)
     );
   }
 }

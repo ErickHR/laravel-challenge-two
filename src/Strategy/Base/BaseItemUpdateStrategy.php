@@ -9,7 +9,7 @@ use GildedRose\Wrapper\SellInWrapper;
 
 use GildedRose\Item;
 
-abstract class BaseItemUpdateStrategy  implements ItemUpdateStrategyFactoryInterface
+abstract class BaseItemUpdateStrategy  implements ItemUpdateStrategyInterface
 {
 
   protected Item $item;
@@ -17,27 +17,33 @@ abstract class BaseItemUpdateStrategy  implements ItemUpdateStrategyFactoryInter
   private ?QualityWrapper $quality = null;
   private ?SellInWrapper $sellIn = null;
 
-  public function __construct(Item $item)
+  public function __construct(QualityWrapper $quality, SellInWrapper $sellIn)
   {
-    $this->item = $item;
+    if ($quality === null) {
+      $this->quality = new QualityWrapper($this->item);
+    } else {
+      $this->quality = $quality;
+    }
+
+    if ($sellIn === null) {
+      $this->sellIn = new SellInWrapper($this->item);
+    } else {
+      $this->sellIn = $sellIn;
+    }
   }
 
   protected function quality(): QualityWrapper
   {
-
-    if ($this->quality === null) {
-      $this->quality = new QualityWrapper($this->item);
-    }
-
-
     return $this->quality;
   }
 
   protected function sellIn(): SellInWrapper
   {
-    if ($this->sellIn === null) {
-      $this->sellIn = new SellInWrapper($this->item);
-    }
     return $this->sellIn;
+  }
+
+  public function setItem(Item $item): void
+  {
+    $this->item = $item;
   }
 }

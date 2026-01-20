@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace GildedRose\Strategy;
 
 use GildedRose\Strategy\Base\BaseItemUpdateStrategy;
+use GildedRose\Wrapper\SellInWrapper;
 
 class StandardItemUpdateStrategy extends BaseItemUpdateStrategy
 {
@@ -13,7 +14,7 @@ class StandardItemUpdateStrategy extends BaseItemUpdateStrategy
     $this->quality()->decrease();
     $this->sellIn()->decrement();
     $this->sellIn()->applyIfSellInBelow(
-      $this->sellIn()->getConstsMinThreshold(),
+      SellInWrapper::MIN_THRESHOLD,
       fn() => $this->quality()->decrease()
     );
   }

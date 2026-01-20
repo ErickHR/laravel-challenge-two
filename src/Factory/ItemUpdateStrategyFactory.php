@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace GildedRose\Factory;
 
 use GildedRose\Item;
-use GildedRose\Strategy\Base\ItemUpdateStrategyFactoryInterface;
 
+use GildedRose\Strategy\Base\ItemUpdateStrategyInterface;
 use GildedRose\Strategy\AgedBrieItemUpdateStrategy;
 use GildedRose\Strategy\BackstageItemUpdateStrategy;
 use GildedRose\Strategy\StandardItemUpdateStrategy;
 use GildedRose\Strategy\SulfurasItemUpdateStrategy;
+
+use GildedRose\Wrapper\QualityWrapper;
+use GildedRose\Wrapper\SellInWrapper;
 
 class ItemUpdateStrategyFactory
 {
@@ -25,9 +28,14 @@ class ItemUpdateStrategyFactory
     self::BACKSTAGE_PASSES => BackstageItemUpdateStrategy::class,
   ];
 
-  public function create(Item $item): ItemUpdateStrategyFactoryInterface
+  public function create(Item $item): ItemUpdateStrategyInterface
   {
+    $quality = new QualityWrapper($item);
+    $sellIn = new SellInWrapper($item);
+
     $strategyClass = $this->strategyMap[$item->name] ?? StandardItemUpdateStrategy::class;
-    return new $strategyClass($item);
+    $instance = new $strategyClass($quality, $sellIn);
+    $instance->setItem($item);
+    return $instance;
   }
 }
